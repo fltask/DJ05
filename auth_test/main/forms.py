@@ -16,6 +16,14 @@ class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя пользователя'})
     )
+    first_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя (необязательно)'})
+    )
+    last_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия (необязательно)'})
+    )
     password1 = forms.CharField(
         label='Password',
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'})
@@ -27,7 +35,7 @@ class CustomUserCreationForm(UserCreationForm):
     
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'phone_number', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'phone_number', 'password1', 'password2')
     
     def clean_email(self):
         email = self.cleaned_data.get('email')
