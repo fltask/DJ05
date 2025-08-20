@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Система аутентификации</h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if user.is_authenticated %}
+                        <div class="text-center">
+                            <h4>Добро пожаловать, {{ user.username }}!</h4>
+                            <p class="lead">Вы успешно вошли в систему.</p>
+                            <div class="d-grid gap-2 d-md-block">
+                                <a href="{% url 'main:profile' %}" class="btn btn-primary">Профиль</a>
+                                <a href="{% url 'main:logout' %}" class="btn btn-danger">Выйти</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center">
+                            <h4>Добро пожаловать в систему аутентификации!</h4>
+                            <p class="lead">Эта система позволяет входить как по логину, так и по email.</p>
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Регистрация</h5>
+                                            <p class="card-text">Создайте новый аккаунт с уникальным email и необязательным номером телефона.</p>
+                                            <a href="{% url 'main:register' %}" class="btn btn-success">Зарегистрироваться</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                                                                         <h5 class="card-title">Вход</h5>
+                                             <p class="card-text">Войдите в систему, используя ваш логин или email и пароль.</p>
+                                            <a href="{% url 'main:login' %}" class="btn btn-primary">Войти</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
